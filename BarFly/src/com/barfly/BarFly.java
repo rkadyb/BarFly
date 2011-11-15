@@ -13,8 +13,8 @@ public class BarFly extends Activity {
         TextView tv = new TextView(this);
         tv.setText("BarFly");
         
-        setContentView(tv);
+        //asetContentView(tv);
         
-        //setContentView(R.layout.main);
+        setContentView(R.layout.main);
     }
 }
