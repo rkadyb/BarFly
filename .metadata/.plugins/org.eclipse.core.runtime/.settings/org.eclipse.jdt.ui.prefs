@@ -1,4 +1,4 @@
-#Tue Nov 15 05:10:50 EST 2011
+#Tue Nov 15 22:00:57 EST 2011
 content_assist_proposals_foreground=60,60,60
 spelling_locale_initialized=true
 org.eclipse.jdt.ui.text.templates_migrated=true
@@ -11,9 +11,11 @@ fontPropagated=true
 org.eclipse.jdt.ui.text.custom_code_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>
 org.eclipse.jdt.ui.javadoclocations.migrated=true
 proposalOrderMigrated=true
-org.eclipse.jdt.ui.formatterprofiles.version=12
 content_assist_proposals_background=255,255,255
+org.eclipse.jdt.ui.formatterprofiles.version=12
+org.eclipse.jdt.internal.ui.navigator.layout=2
 content_assist_number_of_computers=13
 useQuickDiffPrefPage=true
 org.eclipse.jdt.ui.text.custom_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"/>
 org.eclipse.jdt.ui.text.code_templates_migrated=true
