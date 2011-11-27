@@ -24,6 +24,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>CreateEvent</servlet-name>
 		<servlet-class>com.barfly.server.CreateEvent</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>SetEventInfo</servlet-name>
+		<servlet-class>com.barfly.server.SetEventInfo</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>BarFlyServer</servlet-name>
 		<url-pattern>/barflyserver</url-pattern>
@@ -43,6 +47,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet-mapping>
 		<servlet-name>CreateEvent</servlet-name>
 		<url-pattern>/createEvent</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SetEventInfo</servlet-name>
+		<url-pattern>/setEventInfo</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

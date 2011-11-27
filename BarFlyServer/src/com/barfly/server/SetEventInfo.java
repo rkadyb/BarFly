@@ -15,12 +15,12 @@ import com.google.appengine.api.datastore.KeyFactory;
 
 /**
  * 
- * Takes requests in the form of http://app-engine-url/createEvent?name=EVENTNAME&info=INFO
- *
+ * Takes requests in the form http://app-engine-url/setEventInfo?name=EVENTNAME&info=INFO
+ * 
  */
 
 @SuppressWarnings("serial")
-public class CreateEvent extends HttpServlet {
+public class SetEventInfo extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		
@@ -38,17 +38,15 @@ public class CreateEvent extends HttpServlet {
 			
 			try {
 				
-				datastore.get(key);
-				resp.getWriter().println("Event "+name+" already exists");
+				Entity event = datastore.get(key);
+				event.setProperty("info", info);
+				datastore.put(event);
+				
+				resp.getWriter().println("Event "+name+ " info changed to "+info);
 				
 			} catch (EntityNotFoundException e) {
-				
-				Entity event = new Entity("Event", name);
-				event.setProperty("event_name", name);
-				event.setProperty("info", info);
-				
-				datastore.put(event);
-				resp.getWriter().println("Event "+event+" Created");
+								
+				resp.getWriter().println("Event "+name+" does not exist");
 
 			}
 			
