@@ -13,8 +13,16 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-class>com.barfly.server.NewUser</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>AddFriend</servlet-name>
+		<servlet-class>com.barfly.server.AddFriend</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>AddFriends</servlet-name>
 		<servlet-class>com.barfly.server.AddFriends</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CreateEvent</servlet-name>
+		<servlet-class>com.barfly.server.CreateEvent</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>BarFlyServer</servlet-name>
@@ -25,8 +33,16 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/newUser</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+		<servlet-name>AddFriend</servlet-name>
+		<url-pattern>/addFriend</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>AddFriends</servlet-name>
 		<url-pattern>/addFriends</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CreateEvent</servlet-name>
+		<url-pattern>/createEvent</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

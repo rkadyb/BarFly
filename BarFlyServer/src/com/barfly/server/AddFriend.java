@@ -16,11 +16,11 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
 /**
- * Takes requests of the form http://app-engine-url/addFriends?user=USERNAME&friends=FRIEND1,FRIEND2 ...
+ * Takes requests of the form http://app-engine-url/addFriend?user=USERNAME&friend=FRIEND
  */
 
 @SuppressWarnings("serial")
-public class AddFriends extends HttpServlet {
+public class AddFriend extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
@@ -28,47 +28,45 @@ public class AddFriends extends HttpServlet {
 		resp.setContentType("text/plain");
 		
 		if (req.getParameterMap().containsKey("user") && 
-			req.getParameterMap().containsKey("friends")) {
+			req.getParameterMap().containsKey("friend")) {
 			
 			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 			
 			String username = req.getParameter("user");
-			String friendsInput = req.getParameter("friends");
-			String[] friendsList = friendsInput.split(",");
+			String friend = req.getParameter("friend");
 			
 			Key userkey = KeyFactory.createKey("User", username);
-			Key friendkey;
+			Key friendkey = KeyFactory.createKey("User", friend);
 			
 			try {
 				
+				datastore.get(friendkey);
 				Entity user = datastore.get(userkey);
 				List<String> friends = new ArrayList<String>();
 				if (user.hasProperty("friends")) {
 					friends = (List<String>) user.getProperty("friends");
-				}
-					
-				for (String friend: friendsList) {
 					if (friends.contains(friend)) {
 						resp.getWriter().println(friend+" is alread a Friend of "+username);
 					} else {
-						friendkey = KeyFactory.createKey("User", friend);
-						try {
-							datastore.get(friendkey);
-							friends.add(friend);
-						} catch (EntityNotFoundException e) {
-							resp.getWriter().println("User "+friend+" does not exist");
-						}
-					}
-				}
-					
-				user.setProperty("friends", friends);
-				datastore.put(user);
-				resp.getWriter().println("Friends added to User "+username);
+						friends.add(friend);
+						user.setProperty("friends", friends);
+						datastore.put(user);
+						resp.getWriter().println("Friend "+friend+" added to User "+username);
 
+					}
+				} else {
+					friends.add(friend);
+					user.setProperty("friends", friends);
+					datastore.put(user);
+					resp.getWriter().println("Friend "+friend+" added to User "+username);
+
+				}
+				
+				
 			} catch (EntityNotFoundException e) {
 				
-				resp.getWriter().println("User "+username+" missing");
-				
+				resp.getWriter().println("User/Friend missing");
+
 			}
 			
 		}
