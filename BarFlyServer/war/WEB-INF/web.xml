@@ -52,6 +52,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>GetEvent</servlet-name>
 		<servlet-class>com.barfly.server.GetEvent</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Login</servlet-name>
+		<servlet-class>com.barfly.server.Login</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>BarFlyServer</servlet-name>
 		<url-pattern>/barflyserver</url-pattern>
@@ -99,6 +103,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet-mapping>
 		<servlet-name>GetEvent</servlet-name>
 		<url-pattern>/getEvent</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/login</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
