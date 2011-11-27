@@ -36,7 +36,7 @@ public class AddActivities extends HttpServlet {
 			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 			
 			String name = req.getParameter("name");
-			String activitiesInput = req.getParameter("attending");
+			String activitiesInput = req.getParameter("activities");
 			String[] activitiesList = activitiesInput.split(",");
 			
 			Key key = KeyFactory.createKey("Event", name);

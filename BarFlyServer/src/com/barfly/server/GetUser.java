@@ -49,10 +49,7 @@ public class GetUser extends HttpServlet {
 				resp.getWriter().println("</User>");
 				
 			} catch (EntityNotFoundException e) {
-				
-				Entity user = new Entity("User", username);
-				
-				datastore.put(user);
+								
 				resp.getWriter().println("User "+username+" does not exist");
 
 			}

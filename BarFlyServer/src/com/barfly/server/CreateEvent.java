@@ -48,7 +48,7 @@ public class CreateEvent extends HttpServlet {
 				event.setProperty("info", info);
 				
 				datastore.put(event);
-				resp.getWriter().println("Event "+event+" Created");
+				resp.getWriter().println("Event "+name+" Created");
 
 			}
 			
