@@ -60,15 +60,40 @@ public class Attend extends HttpServlet {
 					
 					try {
 						
-						datastore.get(attendeeKey);
+						Entity person = datastore.get(attendeeKey);
 						
 						if (invitees.contains(attendee)) {
+							
+							List<String> invites = new ArrayList<String>();
+							List<String> attending = new ArrayList<String>();
+							
+							if (person.hasProperty("invites")) {
+								invites = (List<String>) person.getProperty("invites");
+								if (invites.contains(name)) {
+									invites.remove(name);
+									person.setProperty("invites", invites);
+								}
+							}
 							
 							invitees.remove(attendee);
 							
 							if (!attendees.contains(attendee)) {
+								
+								if (person.hasProperty("attending")) {
+								attending = (List<String>) person.getProperty("attending");
+								
+									if (!attending.contains(name)) {
+										attending.add(name);
+										person.setProperty("attending", attending);
+									}
+								
+								}
+								
 								attendees.add(attendee);
 							}
+							
+							datastore.put(person);
+							
 						} else {
 							resp.getWriter().println("User "+attendee+" was not invited");
 						}

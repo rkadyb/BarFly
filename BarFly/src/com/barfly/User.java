@@ -9,6 +9,8 @@ public class User {
 	private String password;
 	private List<User> friends;
 	private Location location;
+	private List<Event> invites;
+	private List<Event> attending;
 
 	public User(String name, String password) {
 		this.name = name;
@@ -41,5 +43,13 @@ public class User {
 	
 	public Location getLocation() {
 		return this.location;
+	}
+	
+	public List<Event> getInvites() {
+		return this.invites;
+	}
+	
+	public List<Event> getAttending() {
+		return this.attending;
 	}
 }

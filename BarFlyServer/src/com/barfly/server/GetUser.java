@@ -43,6 +43,14 @@ public class GetUser extends HttpServlet {
 				if (user.hasProperty("friends")) {
 					resp.getWriter().println("<friends>"+user.getProperty("friends").toString()+"</friends>");
 				}
+				
+				if (user.hasProperty("invites")) {
+					resp.getWriter().println("<invites>"+user.getProperty("invites").toString()+"</invites>");
+				}
+				
+				if (user.hasProperty("attending")) {
+					resp.getWriter().println("<attending>"+user.getProperty("attending").toString()+"</attending>");
+				}
 				if (user.hasProperty("location")) {
 					resp.getWriter().println("<location>"+user.getProperty("location")+"</location>");
 				}

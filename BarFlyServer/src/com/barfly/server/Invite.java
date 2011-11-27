@@ -55,8 +55,23 @@ public class Invite extends HttpServlet {
 					
 					try {
 						
-						datastore.get(inviteeKey);
-						invitees.add(invitee);
+						Entity person = datastore.get(inviteeKey);
+						List<String> invites = new ArrayList<String>();
+						
+						if (person.hasProperty("invites")) {
+							invites = (List<String>) person.getProperty("invites");
+						}
+						
+						if (!invites.contains(name)) {
+							invites.add(name);
+						}
+						
+						person.setProperty("invites", invites);
+						datastore.put(person);
+						
+						if (!invitees.contains(invitee)) {
+							invitees.add(invitee);
+						}
 						
 					} catch (EntityNotFoundException e) {
 						resp.getWriter().println("User "+invitee+" does not exist");
