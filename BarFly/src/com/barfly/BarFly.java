@@ -1,6 +1,19 @@
 package com.barfly;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,20 +23,78 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class BarFly extends Activity {
+	
+	// User object representing the current user
+	private String user = null;
+	private TextView textView;
+	
+	private class CheckLogin extends AsyncTask<String, Void, String> {
+
+		@Override
+		protected String doInBackground(String... params) {
+						
+			String response = "";
+			
+			String username = params[0];
+			String password = params[1];
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpGet httpget = new HttpGet("http://10.0.2.2:8888/login?user="+username+"&pw="+password);			
+			
+			try {
+				HttpResponse httpresponse = httpclient.execute(httpget);
+				
+				if (httpresponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+					InputStream content = httpresponse.getEntity().getContent();
+					BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
+					
+					String s = "";
+					while ((s = buffer.readLine()) != null) {
+						response += s;
+					}
+				}
+					
+				
+			} catch (ClientProtocolException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			return response;
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			
+			if (result.equals("true")) {
+				textView.setText(result);
+			} else {
+				textView.setText("NOPE");
+			}
+		}
+		
+	}
+	
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
         //TextView tv = new TextView(this);
-        
+                
         setContentView(R.layout.main);
+        
+        textView = (TextView) findViewById(R.id.TextView01);
         
         Button login = (Button) findViewById(R.id.button1);
         Button signup = (Button) findViewById(R.id.button2);
+       
         
+        // Login Button Listener
         login.setOnClickListener(new OnClickListener() {
         	public void onClick(View v) {
+
         		EditText usernameET = (EditText) findViewById(R.id.name);
         		EditText passwordET = (EditText) findViewById(R.id.password);
         		
@@ -34,18 +105,15 @@ public class BarFly extends Activity {
         			Toast.makeText(BarFly.this, "Please Enter a Valid Username/Password", Toast.LENGTH_SHORT).show();
         		} else {
         			
-        			// This will have to handle login, but for now just display a user screen
-        			Toast.makeText(BarFly.this, "username: " + username, Toast.LENGTH_LONG).show();
-
-        			TextView tv = new TextView(BarFly.this);
-        			tv.setText("Logged In");
-        			setContentView(tv);
-        			
+        			CheckLogin checkLogin = new CheckLogin();
+        			checkLogin.execute(new String[] {username, password});
+ 			      			
         		}
         		
         	}
         });
         
+        // Signup Button Listener
         signup.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
