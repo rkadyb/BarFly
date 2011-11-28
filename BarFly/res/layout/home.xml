@@ -9,6 +9,28 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
     
+    <com.google.android.maps.MapView
+        android:id="@+id/mapView"
+		android:layout_width="match_parent"
+		android:layout_height="400px"
+ 		android:enabled="true"
+ 		android:clickable="true"
+ 		android:visibility="gone"
+ 		android:apiKey="0aWOHH-g3oaJ1GhTb1KVyN1veoKZlvcqhTGyq2g" />
     
-
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Friends" />
+    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Attending" />
+    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Invites" />
+    
 </LinearLayout>

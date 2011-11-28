@@ -12,7 +12,10 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import android.app.Activity;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapView;
+import com.google.android.maps.MapView.LayoutParams;  
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -20,18 +23,19 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
-public class BarFly extends Activity {
+public class BarFly extends MapActivity {
 	
 	// User object representing the current user
-	private String user = null;
+	//private String user = null;
 	private TextView textView;
 	
-	private class CheckLogin extends AsyncTask<String, Void, String> {
+	private class CheckLogin extends AsyncTask<String, Void, String[]> {
 
 		@Override
-		protected String doInBackground(String... params) {
+		protected String[] doInBackground(String... params) {
 						
 			String response = "";
 			
@@ -60,16 +64,22 @@ public class BarFly extends Activity {
 				e.printStackTrace();
 			}
 			
-			return response;
+			return new String[] {response, username};
 		}
 		
 		@Override
-		protected void onPostExecute(String result) {
+		protected void onPostExecute(String[] result) {
 			
-			if (result.equals("true")) {
-				textView.setText(result);
+			if (result[0].equals("true")) {
+				setContentView(R.layout.home);
+				textView = (TextView) findViewById(R.id.username);
+				textView.setText("Logged In as "+ result[1]);
+				
+				MapView mapView = (MapView) findViewById(R.id.mapView);
+				mapView.setBuiltInZoomControls(true);
+				
 			} else {
-				textView.setText("NOPE");
+				Toast.makeText(BarFly.this, "Please Enter a Valid Username/Password", Toast.LENGTH_SHORT).show();
 			}
 		}
 		
@@ -139,4 +149,11 @@ public class BarFly extends Activity {
 			}
 		});
     }
+
+
+	@Override
+	protected boolean isRouteDisplayed() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
