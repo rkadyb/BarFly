@@ -22,15 +22,50 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Friends" />
+
+    <Button
+        android:id="@+id/add_friend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add a Friend" />    
+    
+    <Button
+        android:id="@+id/see_friends"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="See All Friends" />
+ 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Events" />
+    
+    <Button
+        android:id="@+id/create_event"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create Event" />
     
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Attending" />
+
+    <Button
+        android:id="@+id/see_attending"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="See All Events You Are Attending" />
     
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Invites" />
+    
+    <Button
+        android:id="@+id/see_invites"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="See All Invites" />
     
 </LinearLayout>

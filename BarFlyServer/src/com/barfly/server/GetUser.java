@@ -38,21 +38,21 @@ public class GetUser extends HttpServlet {
 				Entity user = datastore.get(key);
 				resp.getWriter().println("<User>");
 				if (user.hasProperty("name")) {
-					resp.getWriter().println("<name>"+user.getProperty("name")+"</name>");
+					resp.getWriter().println("<name>"+user.getProperty("name"));
 				}
 				if (user.hasProperty("friends")) {
-					resp.getWriter().println("<friends>"+user.getProperty("friends").toString()+"</friends>");
+					resp.getWriter().println("<friends>"+user.getProperty("friends").toString());
 				}
 				
 				if (user.hasProperty("invites")) {
-					resp.getWriter().println("<invites>"+user.getProperty("invites").toString()+"</invites>");
+					resp.getWriter().println("<invites>"+user.getProperty("invites").toString());
 				}
 				
 				if (user.hasProperty("attending")) {
-					resp.getWriter().println("<attending>"+user.getProperty("attending").toString()+"</attending>");
+					resp.getWriter().println("<attending>"+user.getProperty("attending").toString());
 				}
 				if (user.hasProperty("location")) {
-					resp.getWriter().println("<location>"+user.getProperty("location")+"</location>");
+					resp.getWriter().println("<location>"+user.getProperty("location"));
 				}
 				resp.getWriter().println("</User>");
 				

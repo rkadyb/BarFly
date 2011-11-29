@@ -1,27 +1,37 @@
 package com.barfly;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.location.Location;
 
 public class User {
 	private String name;
-	private String password;
-	private List<User> friends;
-	private Location location;
-	private List<Event> invites;
-	private List<Event> attending;
+	//private String password;
+	//private List<User> friends;
+	private List<String> friends;
 
-	public User(String name, String password) {
-		this.name = name;
-		this.password = password;
+	private Location location;
+	//private List<Event> invites;
+	private List<String> invites;
+	//private List<Event> attending;
+	private List<String> attending;
+
+//	public User(String name, String password) {
+//		this.name = name;
+//		this.password = password;
+//	}
+	public User() {
+		this.invites = new ArrayList<String>();
+		this.friends = new ArrayList<String>();
+		this.attending = new ArrayList<String>();
 	}
 	
-	public void addFriend(User friend) {
+	public void addFriend(String friend) {
 		this.friends.add(friend);
 	}
 	
-	public List<User> getFriends() {
+	public List<String> getFriends() {
 		return this.friends;
 	}
 	
@@ -33,9 +43,13 @@ public class User {
 		return this.name;
 	}
 	
-	public boolean checkPW(String input) {
-		return (this.password == input);
+	public void setName(String name) {
+		this.name = name;
 	}
+	
+//	public boolean checkPW(String input) {
+//		return (this.password == input);
+//	}
 	
 	public void setLocation(Location location) {
 		this.location = location;
@@ -45,11 +59,19 @@ public class User {
 		return this.location;
 	}
 	
-	public List<Event> getInvites() {
+	public void addInvites(List<String> invites) {
+		this.invites.addAll(invites);
+	}
+	
+	public List<String> getInvites() {
 		return this.invites;
 	}
 	
-	public List<Event> getAttending() {
+	public void addAttending(List<String> attending) {
+		this.attending.addAll(attending);
+	}
+	
+	public List<String> getAttending() {
 		return this.attending;
 	}
 }

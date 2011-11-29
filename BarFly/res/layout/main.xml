@@ -14,7 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Name"
-        android:gravity="center" />
+        android:gravity="center" >
+        
+        <requestFocus />
+        
+    </EditText>
 
     <EditText
         android:id="@+id/password"
@@ -22,10 +26,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:hint="Password"
-        android:gravity="center" >
-
-        <requestFocus />
-    </EditText>
+        android:gravity="center" />
 
     <Button
         android:id="@+id/button1"
