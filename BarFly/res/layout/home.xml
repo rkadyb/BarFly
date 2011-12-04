@@ -15,7 +15,6 @@
 		android:layout_height="400px"
  		android:enabled="true"
  		android:clickable="true"
- 		android:visibility="gone"
  		android:apiKey="0aWOHH-g3oaJ1GhTb1KVyN1veoKZlvcqhTGyq2g" />
     
     <TextView
