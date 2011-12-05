@@ -1,6 +1,8 @@
 package com.barfly;
 
 import android.location.Location;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 public class Activity {
 	private String name;
@@ -23,4 +25,5 @@ public class Activity {
 	public void setInfo(String info) {
 		this.info = info;
 	}
+
 }

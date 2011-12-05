@@ -20,6 +20,9 @@ import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -28,6 +31,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class BarFly extends MapActivity {
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.menu, menu);
+	    return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	    case R.id.back:
+	        return true;
+	    case R.id.logout:
+	        return true;
+	    case R.id.settings:
+	        return true;
+	    case R.id.exit:
+	        return true;
+	    default:
+	        return super.onOptionsItemSelected(item);
+	    }
+	}
 	
 	// User object representing the current user
 	User user = new User();
@@ -128,12 +156,11 @@ public class BarFly extends MapActivity {
 		protected String[] doInBackground(String... params) {
 						
 			String response = "";
-			
-			String username = params[0];
-			String password = params[1];
+			String typeOfRequest = params[0];
+			String username = params[1];
+			String password = params[2];
 			HttpClient httpclient = new DefaultHttpClient();
-			HttpGet httpget = new HttpGet("http://10.0.2.2:8888/login?user="+username+"&pw="+password);			
-			
+			HttpGet httpget = new HttpGet("http://10.0.2.2:8888/"+typeOfRequest+"?user="+username+"&pw="+password);			
 			try {
 				HttpResponse httpresponse = httpclient.execute(httpget);
 				
@@ -160,7 +187,7 @@ public class BarFly extends MapActivity {
 		@Override
 		protected void onPostExecute(String[] result) {
 			
-			if (result[0].equals("true")) {
+			if (result[0].equals("true") || result[0].equals("User Created")) {
 				
 				user.setName(result[1]);
 				
@@ -182,10 +209,10 @@ public class BarFly extends MapActivity {
 		        		setContentView(R.layout.event);
 		        	}
 		        });
-				
-				
-			} else {
+			} else if (result[0].equals("false")) {	
 				Toast.makeText(BarFly.this, "Please Enter a Valid Username/Password", Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(BarFly.this, "Username already exists", 0).show();
 			}
 		}
 		
@@ -224,7 +251,7 @@ public class BarFly extends MapActivity {
         		} else {
         			
         			CheckLogin checkLogin = new CheckLogin();
-        			checkLogin.execute(new String[] {username, password});
+        			checkLogin.execute(new String[] {"login", username, password});
  			      			
         		}
         		
@@ -246,11 +273,13 @@ public class BarFly extends MapActivity {
         		} else {
         			
         			// This will have to handle handle signing up, but for now just display a user screen
-        			Toast.makeText(BarFly.this, "username: " + username, Toast.LENGTH_LONG).show();
+        			//Toast.makeText(BarFly.this, "username: " + username, Toast.LENGTH_LONG).show();
 
-        			TextView tv = new TextView(BarFly.this);
-        			tv.setText("Just Signed Up and Logged In");
-        			setContentView(tv);
+        			//TextView tv = new TextView(BarFly.this);
+        			//tv.setText("Just Signed Up and Logged In");
+        			//setContentView(tv);
+        			CheckLogin checkLogin = new CheckLogin();
+        			checkLogin.execute(new String[] {"newUser", username, password});
         			
         		}				
 				

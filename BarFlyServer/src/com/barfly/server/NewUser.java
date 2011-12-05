@@ -13,6 +13,10 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
+/**
+ * Responds to requests in the form of http://app-engine-url/newUser?user=USERNAME&pw=PASSWORD
+ */
+
 @SuppressWarnings("serial")
 public class NewUser extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -42,7 +46,7 @@ public class NewUser extends HttpServlet {
 				user.setProperty("password", password);
 				
 				datastore.put(user);
-				resp.getWriter().println("User "+username+" Created");
+				resp.getWriter().println("User Created");
 
 			}
 			
