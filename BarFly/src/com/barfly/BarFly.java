@@ -31,6 +31,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class BarFly extends MapActivity {
+
+	// User object representing the current user
+	User user = new User();
+	private TextView textView;
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -47,19 +51,18 @@ public class BarFly extends MapActivity {
 	    case R.id.back:
 	        return true;
 	    case R.id.logout:
+	    	user = new User();
+	    	setContentView(R.layout.main);
 	        return true;
 	    case R.id.settings:
 	        return true;
 	    case R.id.exit:
+	    	this.finish();
 	        return true;
 	    default:
 	        return super.onOptionsItemSelected(item);
 	    }
 	}
-	
-	// User object representing the current user
-	User user = new User();
-	private TextView textView;
 	
 	private class GetUser extends AsyncTask<String, Void, HashMap<String, Object>> {
 
