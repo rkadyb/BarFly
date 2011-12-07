@@ -17,10 +17,6 @@ public class User {
 	//private List<Event> attending;
 	private List<String> attending;
 
-//	public User(String name, String password) {
-//		this.name = name;
-//		this.password = password;
-//	}
 	public User() {
 		this.invites = new ArrayList<String>();
 		this.friends = new ArrayList<String>();
@@ -74,4 +70,5 @@ public class User {
 	public List<String> getAttending() {
 		return this.attending;
 	}
+
 }
