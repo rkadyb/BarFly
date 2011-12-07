@@ -25,8 +25,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,8 +51,6 @@ public class BarFly extends MapActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle item selection
 	    switch (item.getItemId()) {
-	    case R.id.back:
-	        return true;
 	    case R.id.logout:
 	    	user = new User();
 	    	setContentView(R.layout.main);
@@ -62,6 +63,76 @@ public class BarFly extends MapActivity {
 	    default:
 	        return super.onOptionsItemSelected(item);
 	    }
+	}
+	
+	private void homeScreenLoad() {
+		textView = (TextView) findViewById(R.id.username);
+		textView.setText("Logged In as " + user.getName());
+		
+		//MapView mapView = (MapView) findViewById(R.id.mapView);
+		//mapView.setBuiltInZoomControls(true);
+		
+        Button createEvent = (Button) findViewById(R.id.create_event);
+        
+        // Create New Event
+        createEvent.setOnClickListener(new OnClickListener() {
+        	public void onClick(View v) {
+        		setContentView(R.layout.create_event);
+        		createEventScreenLoad();
+        	}
+        });	
+        
+        Button showEvents = (Button) findViewById(R.id.see_attending);
+        // See Attending Events
+        showEvents.setOnClickListener(new OnClickListener() {
+        	public void onClick(View v) {
+        		setContentView(R.layout.event);
+        		eventScreenLoad();
+        	}
+        });
+        
+        Button showInvites = (Button) findViewById(R.id.see_invites);
+        // See Attending Events
+        showInvites.setOnClickListener(new OnClickListener() {
+        	public void onClick(View v) {
+        		setContentView(R.layout.event);
+        		inviteScreenLoad();
+        	}
+        });
+	}
+	
+	private void createEventScreenLoad() {
+        Button createEvent = (Button) findViewById(R.id.create_event_button);
+        
+        // Create New Event
+        createEvent.setOnClickListener(new OnClickListener() {
+        	public void onClick(View v) {
+        		EditText eventNameET = (EditText) findViewById(R.id.event_name);
+        		EditText eventInfoET = (EditText) findViewById(R.id.event_info);
+        		
+        		String eventName = eventNameET.getText().toString();
+        		String eventInfo = eventInfoET.getText().toString();
+        		
+        		if (eventName.equals("")) {
+        			Toast.makeText(BarFly.this, "Please Enter a Valid Crawl Name", Toast.LENGTH_SHORT).show();
+        		} else {
+        			
+        			CreateEvent createEvent = new CreateEvent();
+        			createEvent.execute(new String[] {eventName, eventInfo});
+ 			      			
+        		}
+        	}
+        });
+	}
+	
+	private void eventScreenLoad() {
+		ListView listView = (ListView) findViewById(R.id.eventList);
+		listView.setAdapter(new ArrayAdapter<String>(this, R.layout.event_list_item, user.getAttending()));
+	}
+	
+	private void inviteScreenLoad() {
+		ListView listView = (ListView) findViewById(R.id.eventList);
+		listView.setAdapter(new ArrayAdapter<String>(this, R.layout.event_list_item, user.getInvites()));
 	}
 	
 	private class GetUser extends AsyncTask<String, Void, HashMap<String, Object>> {
@@ -194,28 +265,67 @@ public class BarFly extends MapActivity {
 				
 				user.setName(result[1]);
 				
-				setContentView(R.layout.home);
-				textView = (TextView) findViewById(R.id.username);
-				textView.setText("Logged In as "+ result[1]);
-				
-				MapView mapView = (MapView) findViewById(R.id.mapView);
-				mapView.setBuiltInZoomControls(true);
-				
 				GetUser getUser = new GetUser();
-				getUser.execute(result[1]);
+				getUser.execute(user.getName());
 				
-		        Button createEvent = (Button) findViewById(R.id.create_event);
-		        
-		        // Create New Event
-		        createEvent.setOnClickListener(new OnClickListener() {
-		        	public void onClick(View v) {
-		        		setContentView(R.layout.event);
-		        	}
-		        });
+				setContentView(R.layout.home);
+				homeScreenLoad();
+				
+				
 			} else if (result[0].equals("false")) {	
 				Toast.makeText(BarFly.this, "Please Enter a Valid Username/Password", Toast.LENGTH_SHORT).show();
 			} else {
 				Toast.makeText(BarFly.this, "Username already exists", 0).show();
+			}
+		}
+		
+	}
+	
+	private class CreateEvent extends AsyncTask<String, Void, String[]> {
+
+		@Override
+		protected String[] doInBackground(String... params) {
+						
+			String response = "";
+			String eventName = params[0];
+			String info = params[1];
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpGet httpget = new HttpGet("http://10.0.2.2:8888/createEvent?name="+eventName+"&info="+info);			
+			try {
+				HttpResponse httpresponse = httpclient.execute(httpget);
+				
+				if (httpresponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+					InputStream content = httpresponse.getEntity().getContent();
+					BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
+					
+					String s = "";
+					while ((s = buffer.readLine()) != null) {
+						response += s;
+					}
+				}
+					
+				
+			} catch (ClientProtocolException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			return new String[] {response, eventName};
+		}
+		
+		@Override
+		protected void onPostExecute(String[] result) {
+			
+			if (result[0].equals("Event Created")) {
+				
+				setContentView(R.layout.home);
+				homeScreenLoad();
+				Toast.makeText(BarFly.this, "Bar crawl "+ result[1] +" created", 0).show();
+				
+				
+			} else {
+				Toast.makeText(BarFly.this, "Bar crawl " + result[1] + " already exists. Please choose a new name", 0).show();
 			}
 		}
 		
