@@ -12,12 +12,16 @@ public class Event {
 
 	private List<String> attendees;
 	private List<String> invited;
-	private List<String> activities;
+	//private List<String> activities;
+	private String date;
+	private String time;
+	private List<Activity> activities;
 	
 	public Event() {
 		this.attendees = new ArrayList<String>();
 		this.invited = new ArrayList<String>();
-		this.activities = new ArrayList<String>();
+		//this.activities = new ArrayList<String>();
+		
 	}
 	
 	public void setName(String name) {
@@ -28,9 +32,11 @@ public class Event {
 		return this.event_name;
 	}
 	
-	public Event(String event_name, String info) {
+	public Event(String event_name, String info, String date, String time) {
 		this.event_name = event_name;
 		this.info = info;
+		this.setDate(date);
+		this.setTime(time);
 	}
 	
 	public void addAttendee(String attendee) {
@@ -73,15 +79,31 @@ public class Event {
 		return this.info;
 	}
 	
-	public void addActivity(String activity) {
+	/*public void addActivity(String activity) {
 		this.activities.add(activity);
 	}
 	
 	public void addActivities(List<String> activities) {
 		this.activities.addAll(activities);
-	}
+	}*/
 	
 	public void removeActivity(String activity) {
 		this.activities.remove(activity);
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 }
