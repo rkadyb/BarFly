@@ -20,6 +20,7 @@ import com.barfly.Event;
 import com.barfly.R;
 import com.barfly.User;
 import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapView;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -52,6 +53,7 @@ public class ViewCrawl extends MapActivity {
 		setContentView(R.layout.view_crawl);
 		((TextView) findViewById(R.id.event_name)).setText(crawl.getName());
 		
+		((MapView) findViewById(R.id.crawlMap)).setBuiltInZoomControls(true);
 	}
 	
 	public class GetEvent extends AsyncTask<String, Void, HashMap<String, Object>> {

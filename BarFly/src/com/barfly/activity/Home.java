@@ -35,8 +35,10 @@ import android.widget.Toast;
 
 import com.barfly.R;
 import com.barfly.User;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapView;
 
-public class Home extends Activity {
+public class Home extends MapActivity {
 
 	// User object representing the current user
 	User user = new User();
@@ -59,11 +61,10 @@ public class Home extends Activity {
 		
 		setContentView(R.layout.home);
 
+		((MapView) findViewById(R.id.homeMap)).setBuiltInZoomControls(true);
+		
 		textView = (TextView) findViewById(R.id.username);
 		textView.setText("Logged In as " + user.getName());
-		
-		//MapView mapView = (MapView) findViewById(R.id.mapView);
-		//mapView.setBuiltInZoomControls(true);
 		
         Button createEvent = (Button) findViewById(R.id.create_event);
         
@@ -255,5 +256,10 @@ public class Home extends Activity {
 			
 		}
 		
+	}
+
+	@Override
+	protected boolean isRouteDisplayed() {
+		return false;
 	}
 }
