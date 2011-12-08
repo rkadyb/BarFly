@@ -109,7 +109,15 @@
         android:layout_height="wrap_content"
         android:inputType="textPostalAddress" />
     
-	   	<Button
+        <com.google.android.maps.MapView
+       	android:id="@+id/select_event_location_Map"
+		android:layout_width="match_parent"
+		android:layout_height="300px"
+ 		android:enabled="true"
+ 		android:clickable="true"
+ 		android:apiKey="0aWOHH-g3oaJ1GhTb1KVyN1veoKZlvcqhTGyq2g" />
+    
+	<Button
         android:id="@+id/create_event_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

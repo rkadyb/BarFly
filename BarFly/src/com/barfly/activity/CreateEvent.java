@@ -37,9 +37,11 @@ import android.widget.Toast;
 
 import com.barfly.R;
 import com.barfly.User;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapView;
 
 
-public class CreateEvent extends Activity {
+public class CreateEvent extends MapActivity {
 	
 	// User object representing the current user
 	User user = new User();
@@ -62,7 +64,7 @@ public class CreateEvent extends Activity {
         }
 		
 		setContentView(R.layout.create_event);
-
+		((MapView) findViewById(R.id.select_event_location_Map)).setBuiltInZoomControls(true);
         Button createEvent = (Button) findViewById(R.id.create_event_button);
         
         // Create New Event
@@ -333,5 +335,10 @@ public class CreateEvent extends Activity {
 			
 		}
 		
+	}
+
+	@Override
+	protected boolean isRouteDisplayed() {
+		return false;
 	}
 }
