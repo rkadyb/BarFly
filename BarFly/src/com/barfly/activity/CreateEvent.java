@@ -153,8 +153,10 @@ public class CreateEvent extends Activity {
 			// set selected date into textview
 			EditText time = (EditText) findViewById(R.id.time);
 			String timeText = new String();
-			if (hourOfDay >= 12) {
+			if (hourOfDay > 12) {
 				timeText = hourOfDay-12 + ":" + minute + "PM";
+			} else if (hourOfDay == 12){
+				timeText = "12:" + minute + "PM";
 			} else if (hourOfDay == 0){
 				timeText = "12:" + minute + "AM";
 			} else {
