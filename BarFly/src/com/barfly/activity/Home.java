@@ -8,6 +8,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -79,10 +81,25 @@ public class Home extends Activity {
         });
 	}
 	
+	// Create a message handling object as an anonymous class.
+	private OnItemClickListener eventClickedListener = new OnItemClickListener() {
+		public void onItemClick(AdapterView<?> adapterView, View view, int position,
+				long id) {
+			eventDetailsScreenLoad();
+			
+		}
+	};
+    
 	private void eventScreenLoad() {
 		ListView listView = (ListView) findViewById(R.id.eventList);
 		listView.setAdapter(new ArrayAdapter<String>(this, R.layout.event_list_item, user.getAttending()));
+		listView.setOnItemClickListener(eventClickedListener);
 	}
+	
+	private void eventDetailsScreenLoad() {
+		Toast.makeText(Home.this, "Date", Toast.LENGTH_SHORT).show();
+	}
+
 	
 	private void inviteScreenLoad() {
 		ListView listView = (ListView) findViewById(R.id.eventList);
