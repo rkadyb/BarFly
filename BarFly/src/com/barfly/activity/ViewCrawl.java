@@ -48,10 +48,12 @@ public class ViewCrawl extends MapActivity {
         	getEvent.execute(state.getString("crawl"));
         	
         	crawl.setName(state.getString("crawl"));
+        	
         }
 		
 		setContentView(R.layout.view_crawl);
 		((TextView) findViewById(R.id.event_name)).setText(crawl.getName());
+		((TextView) findViewById(R.id.dateTime)).setText(crawl.getDate()+ " " + crawl.getTime());
 		
 		((MapView) findViewById(R.id.crawlMap)).setBuiltInZoomControls(true);
 	}
@@ -114,6 +116,16 @@ public class ViewCrawl extends MapActivity {
 							String location =  s;
 							response.put("location", location);
 						}
+						if (s.startsWith("<date>")) {
+							s = s.replace("<date>", "");
+							String date =  s;
+							response.put("date", date);
+						}
+						if (s.startsWith("<time>")) {
+							s = s.replace("<time>", "");
+							String time =  s;
+							response.put("time", time);
+						}
 					}
 				}
 					
@@ -142,12 +154,20 @@ public class ViewCrawl extends MapActivity {
 				crawl.addAttendees((List<String>) result.get("attendees"));				
 			}
 			
-			if (result.containsKey("activities")) {
-				crawl.addActivities((List<String>) result.get("activities"));
-			}
+			//if (result.containsKey("activities")) {
+			//	crawl.addActivities((List<String>) result.get("activities"));
+			//}
 			
 			if (result.containsKey("location")) {
 				//crawl.setLocation(location)
+			}
+			
+			if (result.containsKey("date")) {
+				crawl.setDate((String) result.get("date"));
+			}
+			
+			if (result.containsKey("time")) {
+				crawl.setTime((String) result.get("time"));
 			}
 			
 			// Deal with the UI elements

@@ -48,8 +48,6 @@ public class CreateEvent extends Activity {
 	private int year;
 	private int month;
 	private int day;
-	private int hour;
-	private int minute;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,15 +70,19 @@ public class CreateEvent extends Activity {
         	public void onClick(View v) {
         		EditText eventNameET = (EditText) findViewById(R.id.event_name);
         		EditText eventInfoET = (EditText) findViewById(R.id.event_info);
+
+        		EditText eventTimeET = (EditText) findViewById(R.id.time);
         		
         		String eventName = eventNameET.getText().toString();
         		String eventInfo = eventInfoET.getText().toString();
+        		String eventTime = eventTimeET.getText().toString();
         		
+        		Toast.makeText(CreateEvent.this, eventTime, 0).show();
         		if (eventName.equals("")) {
         			Toast.makeText(CreateEvent.this, "Please Enter a Valid Crawl Name", Toast.LENGTH_SHORT).show();
         		} else {
         			CreateEventAsync createEvent = new CreateEventAsync();
-        			createEvent.execute(new String[] {eventName, eventInfo});	
+        			createEvent.execute(new String[] {eventName, eventInfo, month+"-"+day+"-"+year, eventTime});	
         		}
         	}
         });
@@ -88,7 +90,7 @@ public class CreateEvent extends Activity {
         EditText date = (EditText) findViewById(R.id.date);
         date.setOnFocusChangeListener(new OnFocusChangeListener() {
 			public void onFocusChange(View v, boolean hasFocus) {
-				if (hasFocus) {
+				if (hasFocus){
 					showDialog(DATE_DIALOG_ID);
 				}
 			}
@@ -97,7 +99,7 @@ public class CreateEvent extends Activity {
         EditText time = (EditText) findViewById(R.id.time);
         time.setOnFocusChangeListener(new OnFocusChangeListener() {
 			public void onFocusChange(View v, boolean hasFocus) {
-				if (hasFocus) {
+				if (hasFocus){
 					showDialog(TIME_PICKER_DIALOG_ID);
 				}
 			}
@@ -114,7 +116,7 @@ public class CreateEvent extends Activity {
 		case TIME_PICKER_DIALOG_ID:
 			   // set date picker as current date
 			   return new TimePickerDialog(this, timePickerListener, 
-					   hour, minute, false);
+					   12, 0, false);
 		}
 		return null;
 	}
@@ -131,7 +133,7 @@ public class CreateEvent extends Activity {
 
 			// set selected date into textview
 			EditText date = (EditText) findViewById(R.id.date);
-			//date.setText(month+"/"+day+"/"+year);
+			date.setText(month+"/"+day+"/"+year);
 		}
 	};
 	
@@ -139,12 +141,28 @@ public class CreateEvent extends Activity {
 
 		// when dialog box is closed, below method will be called.
 		public void onTimeSet(TimePicker view, int hourOfDay, int minuteOfHour) {
-			hour = hourOfDay;
-			minute = minuteOfHour;
+			String minute;
+			StringBuilder minuteString = new StringBuilder();
+			minuteString.append(minuteOfHour);
+			if (minuteOfHour < 10) {
+				minuteString.insert(0,'0').toString();				
+			}
+			minute = minuteString.toString();
+			
 
 			// set selected date into textview
 			EditText time = (EditText) findViewById(R.id.time);
-			//time.setText(hour+":"+minute);
+			String timeText = new String();
+			if (hourOfDay > 12) {
+				timeText = hourOfDay-12 + ":" + minute + "PM";
+			} else if (hourOfDay == 12){
+				timeText = "12:" + minute + "PM";
+			} else if (hourOfDay == 0){
+				timeText = "12:" + minute + "AM";
+			} else {
+				timeText = hourOfDay + ":" + minute + "AM";
+			}
+			time.setText(timeText);
 
 		}
 	};
@@ -157,8 +175,10 @@ public class CreateEvent extends Activity {
 			String response = "";
 			String eventName = params[0];
 			String info = params[1];
+			String date = params[2];
+			String time = params[3];
 			HttpClient httpclient = new DefaultHttpClient();
-			HttpGet httpget = new HttpGet("http://10.0.2.2:8888/createEvent?name="+eventName+"&info="+info+"&creator="+user.getName());			
+			HttpGet httpget = new HttpGet("http://10.0.2.2:8888/createEvent?name="+eventName+"&info="+info+"&creator="+user.getName()+"&date="+date+"&time="+time);			
 			try {
 				HttpResponse httpresponse = httpclient.execute(httpget);
 				
