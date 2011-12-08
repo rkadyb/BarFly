@@ -1,4 +1,4 @@
-package com.barfly;
+package com.barfly.activity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,6 +11,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.barfly.R;
+import com.barfly.User;
 import com.google.android.maps.MapActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -67,18 +69,10 @@ public class BarFly extends MapActivity {
 				
 				user.setName(result[1]);
 				
-				//GetUser getUser = new GetUser();
-				//getUser.execute(user.getName());
-				
-				//setContentView(R.layout.home);
-				
 				// Pass the name with which to log in on to the home screen
 				Intent intent = new Intent(getApplicationContext(), Home.class);
 				intent.putExtra("username", user.getName());		
 				startActivity(intent);
-				
-				//homeScreenLoad();
-				
 				
 			} else if (result[0].equals("false")) {	
 				Toast.makeText(BarFly.this, "Please Enter a Valid Username/Password", Toast.LENGTH_SHORT).show();
