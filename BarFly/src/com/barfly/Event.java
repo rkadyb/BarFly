@@ -1,48 +1,67 @@
 package com.barfly;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Event {
-	private List<User> attendees;
-	private List<User> invited;
+	//private List<User> attendees;
+	//private List<User> invited;
 	private String event_name;
 	private String info;
-	private List<Activity> activities;
+	//private List<Activity> activities;
+
+	private List<String> attendees;
+	private List<String> invited;
+	private List<String> activities;
+	
+	public Event() {
+		this.attendees = new ArrayList<String>();
+		this.invited = new ArrayList<String>();
+		this.activities = new ArrayList<String>();
+	}
+	
+	public void setName(String name) {
+		this.event_name = name;
+	}
+	
+	public String getName() {
+		return this.event_name;
+	}
 	
 	public Event(String event_name, String info) {
 		this.event_name = event_name;
 		this.info = info;
 	}
 	
-	public void addAttendee(User attendee) {
+	public void addAttendee(String attendee) {
 		this.attendees.add(attendee);
 	}
 	
-	public void addAttendees(List<User> attendees) {
+	public void addAttendees(List<String> attendees) {
 		this.attendees.addAll(attendees);
 	}
 	
-	public void invite(User user) {
+	public void invite(String user) {
 		this.invited.add(user);
 	}
 	
-	public void inviteAll(List<User> invites) {
+	public void inviteAll(List<String> invites) {
 		this.invited.addAll(invites);
 	}
 	
-	public boolean isInvited(User user) {
+	public boolean isInvited(String user) {
 		return this.invited.contains(user);
 	}
 	
-	public boolean isAttending(User user) {
+	public boolean isAttending(String user) {
 		return this.attendees.contains(user);
 	}
 	
-	public void unInvite(User user) {
+	public void unInvite(String user) {
 		this.invited.remove(user);
 	}
 	
-	public void unAttend(User user) {
+	public void unAttend(String user) {
 		this.attendees.remove(user);
 	}
 	
@@ -50,15 +69,19 @@ public class Event {
 		this.info = info;
 	}
 	
-	public void addActivity(Activity activity) {
+	public String getInfo() {
+		return this.info;
+	}
+	
+	public void addActivity(String activity) {
 		this.activities.add(activity);
 	}
 	
-	public void addActivities(List<Activity> activities) {
+	public void addActivities(List<String> activities) {
 		this.activities.addAll(activities);
 	}
 	
-	public void removeActivity(Activity activity) {
+	public void removeActivity(String activity) {
 		this.activities.remove(activity);
 	}
 }
