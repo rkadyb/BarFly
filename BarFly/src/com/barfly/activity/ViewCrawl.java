@@ -19,12 +19,13 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import com.barfly.Event;
 import com.barfly.R;
 import com.barfly.User;
-import android.app.Activity;
+import com.google.android.maps.MapActivity;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class ViewCrawl extends Activity {
+public class ViewCrawl extends MapActivity {
 	
 	User user = new User();
 	Event crawl = new Event();
@@ -242,6 +243,11 @@ public class ViewCrawl extends Activity {
 			
 		}
 		
+	}
+
+	@Override
+	protected boolean isRouteDisplayed() {
+		return false;
 	}
 	
 }

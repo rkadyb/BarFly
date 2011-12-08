@@ -30,23 +30,38 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/attend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Attend" />    
-            
-        <Button
-            android:id="@+id/invite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Invite" />
-
         <TextView
             android:id="@+id/event_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
+            
+        <com.google.android.maps.MapView
+        	android:id="@+id/mapView"
+			android:layout_width="match_parent"
+			android:layout_height="400px"
+ 			android:enabled="true"
+ 			android:clickable="true"
+ 			android:apiKey="0aWOHH-g3oaJ1GhTb1KVyN1veoKZlvcqhTGyq2g" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/attend"
+                android:layout_width="157dp"
+                android:layout_height="wrap_content"
+                android:text="Attend" />
+
+            <Button
+                android:id="@+id/invite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Invite" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/info"
