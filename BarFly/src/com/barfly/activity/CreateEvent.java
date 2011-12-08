@@ -85,18 +85,14 @@ public class CreateEvent extends Activity {
         EditText date = (EditText) findViewById(R.id.date);
         date.setOnFocusChangeListener(new OnFocusChangeListener() {
 			public void onFocusChange(View v, boolean hasFocus) {
-				if (hasFocus) {
-					showDialog(DATE_DIALOG_ID);
-				}
+				showDialog(DATE_DIALOG_ID);
 			}
         });
         
         EditText time = (EditText) findViewById(R.id.time);
         time.setOnFocusChangeListener(new OnFocusChangeListener() {
 			public void onFocusChange(View v, boolean hasFocus) {
-				if (hasFocus) {
-					showDialog(TIME_PICKER_DIALOG_ID);
-				}
+				showDialog(TIME_PICKER_DIALOG_ID);
 			}
         });
 	}
@@ -128,7 +124,7 @@ public class CreateEvent extends Activity {
 
 			// set selected date into textview
 			EditText date = (EditText) findViewById(R.id.date);
-			//date.setText(month+"/"+day+"/"+year);
+			date.setText(month+"/"+day+"/"+year);
 		}
 	};
 	
@@ -141,7 +137,15 @@ public class CreateEvent extends Activity {
 
 			// set selected date into textview
 			EditText time = (EditText) findViewById(R.id.time);
-			//time.setText(hour+":"+minute);
+			String timeText = new String();
+			if (hour > 12) {
+				timeText = hourOfDay + ":" + minute + " PM";
+			} else if (hour == 0){
+				timeText = "12:" + minute + " AM";
+			} else {
+				timeText = hourOfDay + ":" + minute + " AM";
+			}
+			time.setText(timeText);
 
 		}
 	};
