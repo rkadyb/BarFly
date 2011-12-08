@@ -10,6 +10,14 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
     
+    <com.google.android.maps.MapView
+       	android:id="@+id/homeMap"
+		android:layout_width="match_parent"
+		android:layout_height="400px"
+ 		android:enabled="true"
+ 		android:clickable="true"
+ 		android:apiKey="0aWOHH-g3oaJ1GhTb1KVyN1veoKZlvcqhTGyq2g" />
+    
     <Button
         android:id="@+id/create_event"
         android:layout_width="match_parent"
