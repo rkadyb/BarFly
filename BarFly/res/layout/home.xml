@@ -20,7 +20,7 @@
         android:id="@+id/see_attending"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Join a Bar Crawl" />
+        android:text="Crawls You Are Attending" />
     
     <Button
         android:id="@+id/see_invites"
