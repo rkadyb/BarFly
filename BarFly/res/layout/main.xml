@@ -4,27 +4,30 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
+
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="BarFly"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#E2BC00"
         android:textSize="24.5sp" />
-    
+
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="179dp"
         android:layout_height="179dp"
+        android:gravity="center|center_horizontal"
         android:src="@drawable/ic_launcher_barfly" />
-
+
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Put Your Bar on AutoPilot"
+        android:gravity="center"
+        android:text="Put Your BarCrawl on AutoPilot"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout
