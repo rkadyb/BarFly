@@ -6,8 +6,26 @@
     android:orientation="vertical" >
 
     <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BarFly"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#E2BC00"
+        android:textSize="24.5sp" />
+    
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="179dp"
+        android:layout_height="179dp"
+        android:src="@drawable/ic_launcher_barfly" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Put Your Bar on AutoPilot"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -16,10 +34,13 @@
 
         <TextView
             android:id="@+id/nameText"
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:text="User Name: "
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:text="User Name: " />
+
+        <requestFocus />
+
+        <requestFocus />
 
         <EditText
             android:id="@+id/name"
@@ -38,8 +59,7 @@
             android:id="@+id/passwordTest"
             android:layout_width="124dp"
             android:layout_height="wrap_content"
-            android:text="Password: "
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:text="Password: " />
 
         <EditText
             android:id="@+id/password"
@@ -57,7 +77,7 @@
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
-        android:layout_height="73dp"
+        android:layout_height="wrap_content"
         android:text="Login" />
 
     <Button
