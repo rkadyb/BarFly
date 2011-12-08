@@ -13,7 +13,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.barfly.R;
 import com.barfly.User;
-import com.google.android.maps.MapActivity;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,7 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class BarFly extends MapActivity {
+public class BarFly extends Activity {
 
 	// User object representing the current user
 	User user = new User();
@@ -140,9 +141,4 @@ public class BarFly extends MapActivity {
 		});
     }
 
-
-	@Override
-	protected boolean isRouteDisplayed() {
-		return false;
-	}
 }
