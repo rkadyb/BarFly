@@ -17,7 +17,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 
 /**
  * 
- * Takes requests in the form of http://app-engine-url/attend?name=EVENTNAME&attending=USER1,USER2,USER3, ... 
+ * Takes requests in the form of http://app-engine-url/attend?name=USER&attending=EVENT1,EVENT2,EVENT3 
  *
  */
 
@@ -36,82 +36,76 @@ public class Attend extends HttpServlet {
 			
 			String name = req.getParameter("name");
 			String attendingInput = req.getParameter("attending");
-			String[] attendingList = attendingInput.split(",");
+			String[] eventList = attendingInput.split(",");
 			
-			Key key = KeyFactory.createKey("Event", name);
-			Key attendeeKey;
+			Key userkey = KeyFactory.createKey("User", name);
+			Key eventKey;
 			
 			try {
+				Entity user = datastore.get(userkey);
 				
-				Entity event = datastore.get(key);
-				List<String> invitees = new ArrayList<String>();
-				List<String> attendees = new ArrayList<String>();
+				List<String> invites = new ArrayList<String>();
 				
-				if (event.hasProperty("invited")) {
-					invitees = (List<String>) event.getProperty("invited");
+				if (user.hasProperty("invites")) {
+					invites = (List<String>) user.getProperty("invites");
+				}
+
+				List<String> attending = new ArrayList<String>();
+				if (user.hasProperty("attending")) {
+					attending = (List<String>) user.getProperty("attending");
 				}
 				
-				if (event.hasProperty("attendees")) {
-					attendees = (List<String>) event.getProperty("attendees");
-				}
-				
-				for (String attendee: attendingList) {
-					attendeeKey = KeyFactory.createKey("User", attendee);
+				for (String eventName: eventList) {
+					eventKey = KeyFactory.createKey("Event", eventName);
+					
+					if (invites.contains(name)) {
+						invites.remove(name);
+						user.setProperty("invites", invites);
+					}
 					
 					try {
 						
-						Entity person = datastore.get(attendeeKey);
+						Entity event = datastore.get(eventKey);
 						
-						if (invitees.contains(attendee)) {
-							
-							List<String> invites = new ArrayList<String>();
-							List<String> attending = new ArrayList<String>();
-							
-							if (person.hasProperty("invites")) {
-								invites = (List<String>) person.getProperty("invites");
-								if (invites.contains(name)) {
-									invites.remove(name);
-									person.setProperty("invites", invites);
-								}
-							}
-							
-							invitees.remove(attendee);
-							
-							if (!attendees.contains(attendee)) {
-								
-								if (person.hasProperty("attending")) {
-								attending = (List<String>) person.getProperty("attending");
-								
-									if (!attending.contains(name)) {
-										attending.add(name);
-										person.setProperty("attending", attending);
-									}
-								
-								}
-								
-								attendees.add(attendee);
-							}
-							
-							datastore.put(person);
-							
-						} else {
-							resp.getWriter().println("User "+attendee+" was not invited");
+						List<String> invitees = new ArrayList<String>();
+						
+						if (event.hasProperty("invited")) {
+							invitees = (List<String>) event.getProperty("invited");
 						}
+						if (invitees.contains(name)) {
+							invitees.remove(name);
+							event.setProperty("invited", invitees);
+						}
+
+						List<String> attendees = new ArrayList<String>();
+						if (event.hasProperty("attendees")) {
+							attendees = (List<String>) event.getProperty("attendees");
+						}
+							
+						if (!attendees.contains(name)) {
+							attendees.add(name);
+							event.setProperty("attendees", attendees);
+						}
+								
+						if (!attending.contains(name)) {
+								attending.add(name);
+								user.setProperty("attending", attending);
+						}
+						
+						datastore.put(user);
+						datastore.put(event);	
 												
 					} catch (EntityNotFoundException e) {
-						resp.getWriter().println("User "+attendee+" does not exist");
+						resp.getWriter().println("Event "+ eventName +" does not exist");
 					}
 				}
 				
-				event.setProperty("invited", invitees);
-				event.setProperty("attendees", attendees);
-				datastore.put(event);
 				
 				resp.getWriter().println("Attendees for Event "+name+ " updated");
 				
 			} catch (EntityNotFoundException e) {
 								
-				resp.getWriter().println("Event "+name+" does not exist");
+				resp.getWriter().println("User "+name+" does not exist");
 
 			}
 			
