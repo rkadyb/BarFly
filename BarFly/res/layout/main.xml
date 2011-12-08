@@ -36,11 +36,11 @@
             android:id="@+id/nameText"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:text="User Name: " />
+            android:text="User Name: " >
 
         <requestFocus />
 
-        <requestFocus />
+        </TextView>
 
         <EditText
             android:id="@+id/name"
@@ -67,10 +67,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="Password"
-            android:inputType="textPassword" >
-
-            <requestFocus />
-        </EditText>
+            android:inputType="textPassword" />
 
     </LinearLayout>
 
