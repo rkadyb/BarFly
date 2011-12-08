@@ -13,6 +13,9 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,8 +24,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.barfly.GetUser;
@@ -35,6 +41,12 @@ public class CreateEvent extends Activity {
 	// User object representing the current user
 	User user = new User();
 	static final int DATE_DIALOG_ID = 0;
+	static final int TIME_PICKER_DIALOG_ID = 1;
+	private int year;
+	private int month;
+	private int day;
+	private int hour;
+	private int minute;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,7 +82,69 @@ public class CreateEvent extends Activity {
         	}
         });
         
+        EditText date = (EditText) findViewById(R.id.date);
+        date.setOnFocusChangeListener(new OnFocusChangeListener() {
+			public void onFocusChange(View v, boolean hasFocus) {
+				if (hasFocus) {
+					showDialog(DATE_DIALOG_ID);
+				}
+			}
+        });
+        
+        EditText time = (EditText) findViewById(R.id.time);
+        time.setOnFocusChangeListener(new OnFocusChangeListener() {
+			public void onFocusChange(View v, boolean hasFocus) {
+				if (hasFocus) {
+					showDialog(TIME_PICKER_DIALOG_ID);
+				}
+			}
+        });
 	}
+    
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case DATE_DIALOG_ID:
+		   // set date picker as current date
+		   return new DatePickerDialog(this, datePickerListener, 
+                         2011, 12, 8);
+		case TIME_PICKER_DIALOG_ID:
+			   // set date picker as current date
+			   return new TimePickerDialog(this, timePickerListener, 
+					   hour, minute, false);
+		}
+		return null;
+	}
+ 
+	private DatePickerDialog.OnDateSetListener datePickerListener 
+                = new DatePickerDialog.OnDateSetListener() {
+ 
+		// when dialog box is closed, below method will be called.
+		public void onDateSet(DatePicker view, int selectedYear,
+				int selectedMonth, int selectedDay) {
+			year = selectedYear;
+			month = selectedMonth + 1;
+			day = selectedDay;
+
+			// set selected date into textview
+			EditText date = (EditText) findViewById(R.id.date);
+			//date.setText(month+"/"+day+"/"+year);
+		}
+	};
+	
+	private TimePickerDialog.OnTimeSetListener timePickerListener = new TimePickerDialog.OnTimeSetListener() {
+
+		// when dialog box is closed, below method will be called.
+		public void onTimeSet(TimePicker view, int hourOfDay, int minuteOfHour) {
+			hour = hourOfDay;
+			minute = minuteOfHour;
+
+			// set selected date into textview
+			EditText time = (EditText) findViewById(R.id.time);
+			//time.setText(hour+":"+minute);
+
+		}
+	};
 	
 	private class CreateEventAsync extends AsyncTask<String, Void, String[]> {
 

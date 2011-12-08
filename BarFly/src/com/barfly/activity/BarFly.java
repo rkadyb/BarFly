@@ -89,12 +89,10 @@ public class BarFly extends MapActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-                
         setContentView(R.layout.main);
         
-        
-        Button login = (Button) findViewById(R.id.button1);
-        Button signup = (Button) findViewById(R.id.button2);
+        Button login = (Button) findViewById(R.id.login);
+        Button signup = (Button) findViewById(R.id.signUp);
         
         
         // Login Button Listener

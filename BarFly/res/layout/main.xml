@@ -72,19 +72,19 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/signUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sign Up" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/syncFacebook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sync From Facebook" />
