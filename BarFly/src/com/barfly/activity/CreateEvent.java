@@ -49,7 +49,7 @@ public class CreateEvent extends Activity {
 	private int month;
 	private int day;
 	private int hour;
-	private int minute;
+	private String minute;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -110,7 +110,7 @@ public class CreateEvent extends Activity {
 		case TIME_PICKER_DIALOG_ID:
 			   // set date picker as current date
 			   return new TimePickerDialog(this, timePickerListener, 
-					   hour, minute, false);
+					   12, 0, false);
 		}
 		return null;
 	}
@@ -136,14 +136,20 @@ public class CreateEvent extends Activity {
 		// when dialog box is closed, below method will be called.
 		public void onTimeSet(TimePicker view, int hourOfDay, int minuteOfHour) {
 			hour = hourOfDay;
-			minute = minuteOfHour;
+			StringBuilder minuteString = new StringBuilder();
+			minuteString.append(minuteOfHour);
+			if (minuteOfHour < 10) {
+				minuteString.insert(0,'0').toString();				
+			}
+			minute = minuteString.toString();
+			
 
 			// set selected date into textview
 			EditText time = (EditText) findViewById(R.id.time);
 			String timeText = new String();
-			if (hour > 12) {
+			if (hourOfDay > 12) {
 				timeText = hourOfDay + ":" + minute + " PM";
-			} else if (hour == 0){
+			} else if (hourOfDay == 0){
 				timeText = "12:" + minute + " AM";
 			} else {
 				timeText = hourOfDay + ":" + minute + " AM";
@@ -162,7 +168,7 @@ public class CreateEvent extends Activity {
 			String eventName = params[0];
 			String info = params[1];
 			HttpClient httpclient = new DefaultHttpClient();
-			HttpGet httpget = new HttpGet("http://10.0.2.2:8888/createEvent?name="+eventName+"&info="+info+"&creator="+user.getName());			
+			HttpGet httpget = new HttpGet("http://10.0.2.2:8888/createEvent?name="+eventName+"&info="+info+"&creator="+user.getName()+"&date="+month+"-"+day+"-"+year+"&hour="+hour+":"+minute);			
 			try {
 				HttpResponse httpresponse = httpclient.execute(httpget);
 				

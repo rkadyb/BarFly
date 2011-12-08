@@ -17,7 +17,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 
 /**
  * 
- * Takes requests in the form of http://app-engine-url/createEvent?name=EVENTNAME&info=INFO&creator=NAME
+ * Takes requests in the form of http://app-engine-url/createEvent?name=EVENTNAME&info=INFO&creator=NAME&date=DATE
  *
  */
 
@@ -31,13 +31,17 @@ public class CreateEvent extends HttpServlet {
 		
 		if (req.getParameterMap().containsKey("name") && 
 			req.getParameterMap().containsKey("info") && 
-			req.getParameterMap().containsKey("creator")) {
+			req.getParameterMap().containsKey("creator") &&
+			req.getParameterMap().containsKey("date") &&
+			req.getParameterMap().containsKey("hour")) {
 			
 			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 			
 			String name = req.getParameter("name");
 			String info = req.getParameter("info");
 			String userName = req.getParameter("creator");
+			String date = req.getParameter("date");
+			String hour = req.getParameter("hour");
 			
 			Key eventkey = KeyFactory.createKey("Event", name);
 			
@@ -51,6 +55,8 @@ public class CreateEvent extends HttpServlet {
 				Entity event = new Entity("Event", name);
 				event.setProperty("event_name", name);
 				event.setProperty("info", info);
+				event.setProperty("date", date);
+				event.setProperty("hour", hour);
 				
 				List<String> attendees = new ArrayList<String>();
 				if (event.hasProperty("attendees")) {
