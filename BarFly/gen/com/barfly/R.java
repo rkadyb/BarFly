@@ -28,6 +28,7 @@ public final class R {
         public static final int create_event_button=0x7f060010;
         public static final int date=0x7f06000a;
         public static final int dateText=0x7f060009;
+        public static final int dateTime=0x7f060030;
         public static final int editText1=0x7f06000f;
         public static final int eventInfo=0x7f060013;
         public static final int eventList=0x7f060011;
@@ -64,7 +65,6 @@ public final class R {
         public static final int signUp=0x7f060028;
         public static final int status=0x7f06002b;
         public static final int syncFacebook=0x7f060029;
-        public static final int textView4=0x7f060030;
         public static final int textView5=0x7f06002a;
         public static final int time=0x7f06000d;
         public static final int timeText=0x7f06000c;

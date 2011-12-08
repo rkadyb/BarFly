@@ -35,8 +35,8 @@ public class Event {
 	public Event(String event_name, String info, String date, String time) {
 		this.event_name = event_name;
 		this.info = info;
-		this.date = date;
-		this.time = time;
+		this.setDate(date);
+		this.setTime(time);
 	}
 	
 	public void addAttendee(String attendee) {
@@ -89,5 +89,21 @@ public class Event {
 	
 	public void removeActivity(String activity) {
 		this.activities.remove(activity);
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 }
