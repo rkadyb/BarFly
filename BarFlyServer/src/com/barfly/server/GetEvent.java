@@ -44,6 +44,14 @@ public class GetEvent extends HttpServlet {
 					resp.getWriter().println("<info>"+event.getProperty("info"));
 				}
 				
+				if (event.hasProperty("date")) {
+					resp.getWriter().println("<date>"+event.getProperty("date"));
+				}
+				
+				if (event.hasProperty("time")) {
+					resp.getWriter().println("<time>"+event.getProperty("time"));
+				}
+				
 				if (event.hasProperty("invited")) {
 					resp.getWriter().println("<invited>"+event.getProperty("invited").toString());
 				}

@@ -140,9 +140,9 @@ public class ViewCrawl extends MapActivity {
 				crawl.addAttendees((List<String>) result.get("attendees"));				
 			}
 			
-			if (result.containsKey("activities")) {
-				crawl.addActivities((List<String>) result.get("activities"));
-			}
+			//if (result.containsKey("activities")) {
+			//	crawl.addActivities((List<String>) result.get("activities"));
+			//}
 			
 			if (result.containsKey("location")) {
 				//crawl.setLocation(location)
