@@ -38,26 +38,26 @@ public class GetEvent extends HttpServlet {
 				Entity event = datastore.get(key);
 				resp.getWriter().println("<Event>");
 				if (event.hasProperty("event_name")) {
-					resp.getWriter().println("<event_name>"+event.getProperty("event_name")+"</event_name>");
+					resp.getWriter().println("<event_name>"+event.getProperty("event_name"));
 				}
 				if (event.hasProperty("info")) {
-					resp.getWriter().println("<info>"+event.getProperty("info")+"</info>");
+					resp.getWriter().println("<info>"+event.getProperty("info"));
 				}
 				
 				if (event.hasProperty("invited")) {
-					resp.getWriter().println("<invited>"+event.getProperty("invited").toString()+"</invited>");
+					resp.getWriter().println("<invited>"+event.getProperty("invited").toString());
 				}
 				
 				if (event.hasProperty("attendees")) {	
-					resp.getWriter().println("<attendees>"+event.getProperty("attendees").toString()+"</attendees>");
+					resp.getWriter().println("<attendees>"+event.getProperty("attendees").toString());
 				}
 				
 				if (event.hasProperty("activities")) {
-					resp.getWriter().println("<activities>"+event.getProperty("activities").toString()+"</activities>");
+					resp.getWriter().println("<activities>"+event.getProperty("activities").toString());
 				}
 				
 				if (event.hasProperty("location")) {
-					resp.getWriter().println("<location>"+event.getProperty("location")+"</location>");
+					resp.getWriter().println("<location>"+event.getProperty("location"));
 				}
 				resp.getWriter().println("</Event>");
 				

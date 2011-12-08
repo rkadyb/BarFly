@@ -32,9 +32,6 @@ public class CrawlsInProgress extends Activity {
 	
 	User user = new User();
 	
-	// Global scope for this activity, used to assign dynamic buttons
-	String temp;
-	
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
@@ -140,28 +137,29 @@ public class CrawlsInProgress extends Activity {
 			// Create our buttons corresponding to different events
 			LinearLayout activeCrawlLayout = (LinearLayout) findViewById(R.id.activeCrawlLayout);
 			
-			for (String crawl : user.getAttending()) {
-				Button crawlButton = new Button(getApplicationContext());
+			for (String crawl : user.getAttending()) {	
 				
-				crawlButton.setText(crawl);
-				
-				// use that fancy global
-				temp = crawl;
-				
-				crawlButton.setOnClickListener(new OnClickListener() {
-					public void onClick(View v) {
-						Intent intent = new Intent(getApplicationContext(), ViewCrawl.class);
-						intent.putExtra("username", user.getName());
-						intent.putExtra("crawl", temp);
-						startActivity(intent);
-					}
-				});
-				
-				activeCrawlLayout.addView(crawlButton);
+				activeCrawlLayout.addView(generateButton(crawl));
 			}
 			
 			
 		}
 		
+	}
+	
+	public Button generateButton(String crawl) {
+		Button crawlButton = new Button(this); 
+		crawlButton.setText(crawl);
+		
+		crawlButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent(getApplicationContext(), ViewCrawl.class);
+				intent.putExtra("username", user.getName());
+				intent.putExtra("crawl", ((Button) v).getText() );
+				startActivity(intent);
+			}
+		});
+		
+		return crawlButton;
 	}
 }
