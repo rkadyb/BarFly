@@ -79,7 +79,6 @@ public class CreateEvent extends MapActivity {
         		String eventInfo = eventInfoET.getText().toString();
         		String eventTime = eventTimeET.getText().toString();
         		
-        		Toast.makeText(CreateEvent.this, eventTime, 0).show();
         		if (eventName.equals("")) {
         			Toast.makeText(CreateEvent.this, "Please Enter a Valid Crawl Name", Toast.LENGTH_SHORT).show();
         		} else {
