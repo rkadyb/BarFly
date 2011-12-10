@@ -72,7 +72,6 @@ public class CreateEvent extends MapActivity {
         	public void onClick(View v) {
         		EditText eventNameET = (EditText) findViewById(R.id.event_name);
         		EditText eventInfoET = (EditText) findViewById(R.id.event_info);
-
         		EditText eventTimeET = (EditText) findViewById(R.id.time);
         		
         		String eventName = eventNameET.getText().toString();
@@ -202,7 +201,7 @@ public class CreateEvent extends MapActivity {
 				e.printStackTrace();
 			}
 			
-			return new String[] {response, eventName};
+			return new String[] {response, eventName.replace("%20", " ")};
 		}
 		
 		@Override
@@ -314,6 +313,7 @@ public class CreateEvent extends MapActivity {
 		}
 		
 		@SuppressWarnings("unchecked")
+		@Override
 		protected void onPostExecute(HashMap<String, Object> result) {
 			if (result.containsKey("friends")) {
 				List<String> friends = (List<String>) result.get("friends");

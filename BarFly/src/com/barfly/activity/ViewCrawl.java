@@ -64,8 +64,10 @@ public class ViewCrawl extends MapActivity {
 			HashMap<String, Object> response = new HashMap<String, Object>();
 			
 			String eventName = params[0];
+			eventName = eventName.trim();
 			eventName = eventName.replace(" ", "%20");
 			HttpClient httpclient = new DefaultHttpClient();
+			System.out.println(eventName);
 			HttpGet httpget = new HttpGet("http://10.0.2.2:8888/getEvent?name="+eventName);
 			try {
 				HttpResponse httpresponse = httpclient.execute(httpget);
@@ -78,6 +80,7 @@ public class ViewCrawl extends MapActivity {
 					while ((s = buffer.readLine()) != null) {
 
 						if (s.startsWith("<info>")) {
+							System.out.println("reading info:"+s);
 							s = s.replace("<info>", "");
 							String info =  s;
 							response.put("info", info);
@@ -141,6 +144,7 @@ public class ViewCrawl extends MapActivity {
 		@SuppressWarnings("unchecked")
 		@Override
 		protected void onPostExecute(HashMap<String, Object> result) {
+			System.out.println("called");
 			if (result.containsKey("info")) {
 				crawl.setInfo((String) result.get("info"));
 			}
