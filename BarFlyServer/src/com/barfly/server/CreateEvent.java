@@ -33,7 +33,8 @@ public class CreateEvent extends HttpServlet {
 			req.getParameterMap().containsKey("info") && 
 			req.getParameterMap().containsKey("creator") &&
 			req.getParameterMap().containsKey("date") &&
-			req.getParameterMap().containsKey("time")) {
+			req.getParameterMap().containsKey("time")&&
+			req.getParameterMap().containsKey("location")) {
 			
 			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 			
@@ -42,6 +43,7 @@ public class CreateEvent extends HttpServlet {
 			String userName = req.getParameter("creator");
 			String date = req.getParameter("date");
 			String time = req.getParameter("time");
+			String location = req.getParameter("location");
 			
 			Key eventkey = KeyFactory.createKey("Event", name);
 			
@@ -57,6 +59,7 @@ public class CreateEvent extends HttpServlet {
 				event.setProperty("info", info);
 				event.setProperty("date", date);
 				event.setProperty("time", time);
+				event.setProperty("location", location);
 				
 				List<String> attendees = new ArrayList<String>();
 				if (event.hasProperty("attendees")) {

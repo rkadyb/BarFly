@@ -25,6 +25,7 @@ import com.google.android.maps.MapView;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ViewCrawl extends MapActivity {
 	
@@ -162,6 +163,7 @@ public class ViewCrawl extends MapActivity {
 			}
 			
 			if (result.containsKey("date")) {
+				Toast.makeText(ViewCrawl.this, (String) result.get("date"), Toast.LENGTH_SHORT).show();
 				crawl.setDate((String) result.get("date"));
 			}
 			

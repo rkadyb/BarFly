@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,7 +17,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -47,9 +47,7 @@ public class CreateEvent extends MapActivity {
 	User user = new User();
 	static final int DATE_DIALOG_ID = 0;
 	static final int TIME_PICKER_DIALOG_ID = 1;
-	private int year;
-	private int month;
-	private int day;
+	Date date;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,16 +72,31 @@ public class CreateEvent extends MapActivity {
         		EditText eventInfoET = (EditText) findViewById(R.id.event_info);
 
         		EditText eventTimeET = (EditText) findViewById(R.id.time);
+        		EditText eventDateET = (EditText) findViewById(R.id.date);
+        		EditText locationET = (EditText) findViewById(R.id.location);
         		
         		String eventName = eventNameET.getText().toString();
+        		eventName = eventName.replace(" ", "%20");
         		String eventInfo = eventInfoET.getText().toString();
+        		eventInfo = eventInfo.replace(" ", "%20");
         		String eventTime = eventTimeET.getText().toString();
-        		
+        		String eventDate = eventDateET.getText().toString();
+        		String location = locationET.getText().toString();
+        		location = eventInfo.replace(" ", "%20");
+        		      		
         		if (eventName.equals("")) {
         			Toast.makeText(CreateEvent.this, "Please Enter a Valid Crawl Name", Toast.LENGTH_SHORT).show();
+        		} else if (eventDate.equals("")) {
+        			Toast.makeText(CreateEvent.this, "Please select a date for your crawl", Toast.LENGTH_SHORT).show();
+        		} else if (new Date().after(date)) {
+        			Toast.makeText(CreateEvent.this, "Please select a date in the future for your crawl", Toast.LENGTH_SHORT).show();
+        		} else if (eventTime.equals("")) {
+        			Toast.makeText(CreateEvent.this, "Please select a time for your crawl", Toast.LENGTH_SHORT).show();
+        		} else if (location.equals("")) {
+        			Toast.makeText(CreateEvent.this, "Please enter a starting location for your crawl", Toast.LENGTH_SHORT).show();
         		} else {
         			CreateEventAsync createEvent = new CreateEventAsync();
-        			createEvent.execute(new String[] {eventName, eventInfo, month+"-"+day+"-"+year, eventTime});	
+        			createEvent.execute(new String[] {eventName, eventInfo, eventDate, eventTime, location});	
         		}
         	}
         });
@@ -109,15 +122,17 @@ public class CreateEvent extends MapActivity {
     
 	@Override
 	protected Dialog onCreateDialog(int id) {
+		Date d = new Date();
 		switch (id) {
 		case DATE_DIALOG_ID:
 		   // set date picker as current date
+			Toast.makeText(CreateEvent.this, "Year: " + d.getYear(), Toast.LENGTH_SHORT).show();
 		   return new DatePickerDialog(this, datePickerListener, 
-                         2011, 12, 8);
+                         d.getYear(), d.getMonth(), d.getDate());
 		case TIME_PICKER_DIALOG_ID:
 			   // set date picker as current date
 			   return new TimePickerDialog(this, timePickerListener, 
-					   12, 0, false);
+					   d.getHours(), d.getMinutes(), false);
 		}
 		return null;
 	}
@@ -128,13 +143,12 @@ public class CreateEvent extends MapActivity {
 		// when dialog box is closed, below method will be called.
 		public void onDateSet(DatePicker view, int selectedYear,
 				int selectedMonth, int selectedDay) {
-			year = selectedYear;
-			month = selectedMonth + 1;
-			day = selectedDay;
+			selectedMonth += 1;
 
 			// set selected date into textview
-			EditText date = (EditText) findViewById(R.id.date);
-			date.setText(month+"/"+day+"/"+year);
+			EditText dateET = (EditText) findViewById(R.id.date);
+			date = new Date(selectedYear, selectedMonth, selectedDay);
+			dateET.setText(selectedMonth+"-"+selectedDay+"-"+selectedYear);
 		}
 	};
 	
@@ -178,8 +192,9 @@ public class CreateEvent extends MapActivity {
 			String info = params[1];
 			String date = params[2];
 			String time = params[3];
+			String location = params[4];
 			HttpClient httpclient = new DefaultHttpClient();
-			HttpGet httpget = new HttpGet("http://10.0.2.2:8888/createEvent?name="+eventName+"&info="+info+"&creator="+user.getName()+"&date="+date+"&time="+time);			
+			HttpGet httpget = new HttpGet("http://10.0.2.2:8888/createEvent?name="+eventName+"&info="+info+"&creator="+user.getName()+"&date="+date+"&time="+time+"&location="+location);			
 			try {
 				HttpResponse httpresponse = httpclient.execute(httpget);
 				
@@ -198,7 +213,7 @@ public class CreateEvent extends MapActivity {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+			eventName = eventName.replace("%20", " ");
 			return new String[] {response, eventName};
 		}
 		

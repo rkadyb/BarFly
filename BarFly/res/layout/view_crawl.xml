@@ -31,10 +31,11 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/event_name"
+            android:id="@+id/eventName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
             
         <com.google.android.maps.MapView
         	android:id="@+id/crawlMap"
