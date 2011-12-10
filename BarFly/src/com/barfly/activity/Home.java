@@ -56,7 +56,7 @@ public class Home extends MapActivity {
         }
         
         if (state.getString("message") != null){
-        	Toast.makeText(Home.this, state.getString("username"), 0).show();
+        	Toast.makeText(Home.this, state.getString("message"), 0).show();
     	}
 		
 		setContentView(R.layout.home);
