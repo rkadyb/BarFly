@@ -30,7 +30,6 @@ public final class R {
         public static final int date=0x7f06000a;
         public static final int dateText=0x7f060009;
         public static final int dateTime=0x7f060031;
-        public static final int editText1=0x7f06000f;
         public static final int eventInfo=0x7f060014;
         public static final int eventList=0x7f060012;
         public static final int eventName=0x7f060013;
@@ -50,7 +49,8 @@ public final class R {
         public static final int linearLayout3=0x7f060008;
         public static final int linearLayout4=0x7f06000b;
         public static final int listView1=0x7f060020;
-        public static final int location=0x7f06000e;
+        public static final int location=0x7f06000f;
+        public static final int locationText=0x7f06000e;
         public static final int login=0x7f060028;
         public static final int logout=0x7f060034;
         public static final int mapView=0x7f06001d;
