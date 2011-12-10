@@ -175,7 +175,10 @@ public class CreateEvent extends MapActivity {
 						
 			String response = "";
 			String eventName = params[0];
+    		// Html escape
+    		eventName = eventName.replace(" ", "%20");
 			String info = params[1];
+    		info = info.replace(" ", "%20");
 			String date = params[2];
 			String time = params[3];
 			HttpClient httpclient = new DefaultHttpClient();
