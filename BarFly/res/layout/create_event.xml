@@ -110,12 +110,12 @@
         android:inputType="textPostalAddress" />
     
         <com.google.android.maps.MapView
-       	android:id="@+id/select_event_location_Map"
-		android:layout_width="match_parent"
-		android:layout_height="300px"
- 		android:enabled="true"
- 		android:clickable="true"
- 		android:apiKey="0aWOHH-g3oaJ1GhTb1KVyN1veoKZlvcqhTGyq2g" />
+            android:id="@+id/select_event_location_Map"
+            android:layout_width="match_parent"
+            android:layout_height="159dp"
+            android:apiKey="0REC2Hl8UoSWWoBdzwCW56ux818bCEUpNAVbnMA"
+            android:clickable="true"
+            android:enabled="true" />
     
 	<Button
         android:id="@+id/create_event_button"

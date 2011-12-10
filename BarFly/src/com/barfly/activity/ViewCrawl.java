@@ -53,7 +53,6 @@ public class ViewCrawl extends MapActivity {
 		
 		setContentView(R.layout.view_crawl);
 		((TextView) findViewById(R.id.event_name)).setText(crawl.getName());
-		((TextView) findViewById(R.id.dateTime)).setText(crawl.getDate()+ " " + crawl.getTime());
 		
 		((MapView) findViewById(R.id.crawlMap)).setBuiltInZoomControls(true);
 	}
@@ -159,7 +158,7 @@ public class ViewCrawl extends MapActivity {
 			//}
 			
 			if (result.containsKey("location")) {
-				//crawl.setLocation(location)
+				crawl.setLocation((String) result.get("location"));
 			}
 			
 			if (result.containsKey("date")) {
@@ -173,6 +172,8 @@ public class ViewCrawl extends MapActivity {
 			// Deal with the UI elements
 			TextView infoBox = (TextView) findViewById(R.id.info);
 			infoBox.setText(crawl.getInfo());
+			
+			((TextView) findViewById(R.id.dateTime)).setText(crawl.getDate()+ " " + crawl.getTime());
 		}
 	}
 	

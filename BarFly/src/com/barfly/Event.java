@@ -16,6 +16,7 @@ public class Event {
 	private String date;
 	private String time;
 	private List<Activity> activities;
+	private String location;
 	
 	public Event() {
 		this.attendees = new ArrayList<String>();
@@ -105,5 +106,13 @@ public class Event {
 
 	public void setTime(String time) {
 		this.time = time;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 }

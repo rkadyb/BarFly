@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="238dp"
         android:gravity="center|center_horizontal"
-        android:src="@drawable/logobarfly" />
+        android:src="@drawable/logobarflywhite" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
